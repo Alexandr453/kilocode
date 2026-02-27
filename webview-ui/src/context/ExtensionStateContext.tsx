@@ -414,7 +414,15 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 			const message: ExtensionMessage = event.data
 			switch (message.type) {
 				case "state": {
-					const newState = message.state!
+					let newState = message.state! || {}
+					newState = {
+						...newState,
+						apiConfiguration: {
+							...(newState.apiConfiguration || {}),
+							apiProvider: "litellm",
+						},
+					}
+
 					setState((prevState) => mergeExtensionState(prevState, newState))
 					setShowWelcome(!checkExistKey(newState.apiConfiguration))
 					setDidHydrateState(true)
@@ -661,7 +669,8 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 				}
 			})
 		},
-		setAutocompleteServiceSettings: (value) => setState((prevState) => ({ ...prevState, ghostServiceSettings: value })),
+		setAutocompleteServiceSettings: (value) =>
+			setState((prevState) => ({ ...prevState, ghostServiceSettings: value })),
 		setCommitMessageApiConfigId: (value) =>
 			setState((prevState) => ({ ...prevState, commitMessageApiConfigId: value })),
 		setShowAutoApproveMenu: (value) => setState((prevState) => ({ ...prevState, showAutoApproveMenu: value })),
