@@ -57,6 +57,8 @@ export const MODELS_BY_PROVIDER: Partial<Record<ProviderName, Record<string, Mod
 	corethink: corethinkModels,
 }
 
-export const PROVIDERS = [{ value: "litellm", label: "LiteLLM", proxy: true }].sort((a, b) =>
-	a.label.localeCompare(b.label),
-)
+export const PROVIDERS = [
+	{ value: "litellm", label: "LiteLLM", proxy: true },
+	{ value: "openai", label: "OpenAI Compatible", proxy: true },
+	{ value: "openai-responses", label: "OpenAI Compatible (Responses)", proxy: true },
+].sort((a, b) => a.label.localeCompare(b.label))

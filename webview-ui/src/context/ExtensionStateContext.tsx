@@ -32,7 +32,10 @@ import { McpMarketplaceCatalog } from "../../../src/shared/kilocode/mcp" // kilo
 
 import { vscode } from "@src/utils/vscode"
 import { convertTextMateToHljs } from "@src/utils/textMateToHljs"
-import { ClineRulesToggles } from "@roo/cline-rules" // kilocode_change
+import { ClineRulesToggles } from "@roo/cline-rules"
+import { PROVIDERS } from "@/components/settings/constants" // kilocode_change
+
+const AVAILABLE_API_PROVIDERS = PROVIDERS?.map((provider) => provider.value)
 
 export interface ExtensionStateContextType extends ExtensionState {
 	historyPreviewCollapsed?: boolean
@@ -419,7 +422,10 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 						...newState,
 						apiConfiguration: {
 							...(newState.apiConfiguration || {}),
-							apiProvider: "litellm",
+							openAiModelId: undefined,
+							apiProvider: AVAILABLE_API_PROVIDERS?.includes(newState.apiConfiguration?.apiProvider || "")
+								? newState.apiConfiguration?.apiProvider
+								: "litellm",
 						},
 					}
 
