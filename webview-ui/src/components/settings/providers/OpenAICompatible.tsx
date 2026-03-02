@@ -140,7 +140,7 @@ export const OpenAICompatible = ({
 			<ModelPicker
 				apiConfiguration={apiConfiguration}
 				setApiConfigurationField={setApiConfigurationField}
-				defaultModelId="gpt-4o"
+				defaultModelId=""
 				models={openAiModels}
 				modelIdKey="openAiModelId"
 				serviceName="OpenAI"
